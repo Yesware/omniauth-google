@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
     "lib/omniauth-google.rb",
     "lib/omniauth-google/version.rb",
     "lib/omniauth/strategies/google.rb",
+    "omniauth-google.gemspec",
     "spec/omniauth/strategies/google_spec.rb",
     "spec/spec_helper.rb"
   ]
