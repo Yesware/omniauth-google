@@ -19,7 +19,7 @@ Jeweler::Tasks.new do |gem|
   gem.summary = %Q{A Google OAuth strategy for OmniAuth 1.0}
   gem.description = gem.summary
   gem.email = "info@yesware.com"
-  gem.authors = ["mjbellantoni@yahoo.com"]
+  gem.authors = ["apps@yesware.com"]
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
