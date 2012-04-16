@@ -41,7 +41,7 @@ DEPENDENCIES
   bundler
   jeweler
   multi_json
-  omniauth (~> 1.0.0)
+  omniauth (~> 1.0)
   omniauth-oauth
   rack-test
   rspec
