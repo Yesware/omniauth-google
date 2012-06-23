@@ -15,9 +15,10 @@ module OmniAuth
           :request_token_path => '/accounts/OAuthGetRequestToken',
           :site => 'https://www.google.com',
         }
-        google_contacts_auth = 'www.google.com/m8/feeds'
-        options[:scope] ||= "https://#{google_contacts_auth}"
-        options[:scope] << " https://#{google_contacts_auth}" unless options[:scope] =~ %r[http[s]?:\/\/#{google_contacts_auth}]
+        google_user_info_auth = 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
+        options[:scope] ||= google_user_info_auth
+        options[:scope] << " #{google_user_info_auth}" unless options[:scope] =~ %r[#{google_user_info_auth}]
+        
         options[:client_options] = client_options
 
         super(app, consumer_key, consumer_secret, options, &block)
@@ -36,27 +37,24 @@ module OmniAuth
       end
 
       def user_info
-        email = user_hash['feed']['id']['$t']
-
-        name = user_hash['feed']['author'].first['name']['$t']
-        name = email if name.strip == '(unknown)'
+        email = user_hash['email']
+        id = user_hash['id']
+        
+        if name.strip == '(unknown)'
+          name = email
+        else
+          name = user_hash['name']
+        end
 
         {
           'email' => email,
-          'uid' => email,
+          'uid' => id,
           'name' => name,
         }
       end
 
       def user_hash
-        # Google is very strict about keeping authorization and
-        # authentication separated.
-        # They give no endpoint to get a user's profile directly that I can
-        # find. We *can* get their name and email out of the contacts feed,
-        # however. It will fail in the extremely rare case of a user who has
-        # a Google Account but has never even signed up for Gmail. This has
-        # not been seen in the field.
-        @user_hash ||= MultiJson.decode(@access_token.get('https://www.google.com/m8/feeds/contacts/default/full?max-results=1&alt=json').body)
+        @user_hash ||= MultiJson.decode(@access_token.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json').body)
       end
 
       # Monkeypatch OmniAuth to pass the scope and authorize_params in the consumer.get_request_token call
