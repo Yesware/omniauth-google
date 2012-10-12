@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "omniauth-google"
-  s.version = "1.0.1"
+  s.version = "1.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["apps@yesware.com"]
-  s.date = "2011-12-28"
+  s.date = "2012-10-12"
   s.description = "A Google OAuth strategy for OmniAuth 1.0"
   s.email = "info@yesware.com"
   s.extra_rdoc_files = [
@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/Yesware/omniauth-google"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.10"
+  s.rubygems_version = "1.8.15"
   s.summary = "A Google OAuth strategy for OmniAuth 1.0"
 
   if s.respond_to? :specification_version then
